@@ -110,6 +110,34 @@
         #whatsapp-btn:hover {
             background-color: #20b358;
         }
+
+        #cart {
+            background-color: #444;
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            margin: 10px auto;
+            padding: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        #cart h2 {
+            color: #d4af37;
+        }
+
+        #cart p {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        #paypal-form {
+            margin-top: 10px;
+        }
+
+        #paypal-form input[type="number"] {
+            width: 60px;
+        }
     </style>
 </head>
 <body>
@@ -117,11 +145,20 @@
         <header>
             <img src="https://i.imgur.com/ZIyl6k8.png" alt="Logo" class="logo">
             <div class="title">
-              <h1>Cervecería Adelipa</h1> <h2> Catálogo </h2></p> <p> Hacienda de San Andrés, Puebla, México.
+              <h1>Cervecería Adelipa</h1> 
+              <h2>Catálogo</h2>
+              <p>Hacienda de San Andrés, Puebla, México.</p>
             </div>
         </header>
 
         <div id="menu"></div>
+
+        <div id="cart">
+            <h2>Carrito de Compras</h2>
+            <div id="cart-items"></div>
+            <p id="cart-total">Total: $0.00</p>
+            <div id="paypal-form"></div>
+        </div>
 
         <button id="whatsapp-btn">Contactar por WhatsApp</button>
     </div>
@@ -148,6 +185,9 @@
 
             const prices = [250, 300, 350]; // Precios fijos entre 250 y 350 pesos
             const menuSection = document.getElementById('menu');
+            const cartItemsSection = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const paypalForm = document.getElementById('paypal-form');
 
             const images = [
                 "https://freerangestock.com/thumbnail/118370/close-up-of-beer-foam.jpg",
@@ -162,31 +202,62 @@
                 "https://freerangestock.com/thumbnail/126507/beer-glass-and-hand-.jpg"              
             ];
 
+            let cart = [];
+            let total = 0;
+
             function getRandomImage() {
                 return images[Math.floor(Math.random() * images.length)];
             }
 
-            function createProductElement(product) {
+            function createProductElement(product, index) {
                 const price = prices[Math.floor(Math.random() * prices.length)];
                 const productDiv = document.createElement('div');
                 productDiv.className = 'product';
-                productDiv.innerHTML = `
-                    <h2>${product.name}</h2>
+                productDiv.innerHTML = 
+                    `<h2>${product.name}</h2>
                     <p>${product.description}</p>
                     <p>Precio: $${price} por dos botellas de 355 ml más envío</p>
                     <img src="${getRandomImage()}" alt="Imagen decorativa">
-                  <p>Pago con Paypal</p>  <p><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                        <input type="hidden" name="cmd" value="_s-xclick" />
-                        <input type="hidden" name="hosted_button_id" value="HQLXN5CF4SYJ4" />
-                        <input type="hidden" name="currency_code" value="MXN" />
-                        <input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_cart_SM.gif" border="0" name="submit" title="PayPal es una forma segura y fácil de pagar en línea." alt="Agregar al carrito" />
-                    </form></p>
-                `;
+                    <p><label>Cantidad: <input type="number" id="quantity-${index}" value="1" min="1"></label></p>
+                    <button onclick="addToCart(${index}, ${price})">Agregar al carrito</button>`;
                 return productDiv;
             }
 
-            products.forEach((product) => {
-                menuSection.appendChild(createProductElement(product));
+            window.addToCart = function(index, price) {
+                const quantityInput = document.getElementById(`quantity-${index}`);
+                const quantity = parseInt(quantityInput.value);
+                const product = products[index];
+                cart.push({ name: product.name, price: price, quantity: quantity });
+                updateCart();
+            }
+
+            function updateCart() {
+                cartItemsSection.innerHTML = '';
+                total = 0;
+                cart.forEach(item => {
+                    cartItemsSection.innerHTML += `<p>${item.name} - $${item.price} x ${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</p>`;
+                    total += item.price * item.quantity;
+                });
+                cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+                updatePayPalForm();
+            }
+
+            function updatePayPalForm() {
+                paypalForm.innerHTML = `
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_xclick" />
+    <input type="hidden" name="business" value="gascagtz@gmail.com" />
+    <input type="hidden" name="currency_code" value="MXN" />
+    <input type="hidden" name="amount" value="${total.toFixed(2)}" />
+    <input type="hidden" name="item_name" value="${cart.map(item => `${item.name} (${item.quantity})`).join(', ')}" />
+    <input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_cart_SM.gif" border="0" name="submit" title="PayPal es una forma segura y fácil de pagar en línea." alt="Pagar con PayPal" />
+</form>
+
+                `;
+            }
+
+            products.forEach((product, index) => {
+                menuSection.appendChild(createProductElement(product, index));
             });
 
             const whatsappButton = document.getElementById('whatsapp-btn');
@@ -198,7 +269,6 @@
             });
         });
     </script>
-  <script src="https://www.paypal.com/sdk/js?client-id=AUB1bHFMBbeX37dhIbnGnGkd1pd5qVJfy5Rtf4-GCrWzZw-JV_KylCGBCQI89JxcEhjNQEwg6Llk9cZW&currency=MXN"></script>
-
+    <script src="https://www.paypal.com/sdk/js?client-id=AUB1bHFMBbeX37dhIbnGnGkd1pd5qVJfy5Rtf4-GCrWzZw-JV_KylCGBCQI89JxcEhjNQEwg6Llk9cZW&currency=MXN"></script>
 </body>
 </html>
