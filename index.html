@@ -1,0 +1,196 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cervecería Adelipa</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            padding: 10px;
+        }
+
+        header {
+            background-color: #6a0dad;
+            padding: 20px 10px;
+            border-bottom: 2px solid #d4af37;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        header .logo {
+            width: 300px;
+            height: 300px;
+        }
+
+        header .title {
+            margin-top: 10px;
+        }
+
+        h1 {
+            margin: 10px;
+            color: #d4af37;
+            font-size: 1.5em;
+        }
+
+        h2 {
+            margin: 10px;
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        #menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .product {
+            background-color: #333;
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            margin: 10px 5px;
+            padding: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .product h2 {
+            color: #d4af37;
+            font-size: 1.1em;
+        }
+
+        .product p {
+            font-size: 0.9em;
+        }
+
+        .decorative-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        #whatsapp-btn {
+            background-color: #25d366;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 15px;
+            font-size: 1em;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        #whatsapp-btn:hover {
+            background-color: #20b358;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://i.imgur.com/ZIyl6k8.png" alt="Logo" class="logo">
+            <div class="title">
+              <h1>Cervecería Adelipa</h1> <h2> Catálogo </h2></p> <p> Hacienda de San Andrés, Puebla, México.
+            </div>
+        </header>
+
+        <div id="menu"></div>
+
+        <button id="whatsapp-btn">Contactar por WhatsApp</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const products = [
+                { name: "IPA Clásica", description: "Una IPA con un equilibrio perfecto entre lúpulo y malta. Su sabor es suave con notas de cítricos y un toque de caramelo." },
+                { name: "IPA Roja", description: "Con un color rojizo y un perfil de sabor robusto, esta IPA ofrece notas de frutas rojas y un acabado ligeramente amargo." },
+                { name: "IPA Negra", description: "Una IPA oscura con sabores intensos de café y chocolate, complementados con un leve amargor de lúpulo." },
+                { name: "IPA Doble", description: "Esta IPA de doble lúpulo es intensa y aromática, con un perfil de sabor fuerte que mezcla notas de frutas tropicales y resina." },
+                { name: "IPA con Miel", description: "Una IPA dulce y suave con un toque de miel, ofreciendo un sabor único y una textura aterciopelada." },
+                { name: "IPA de Trigo", description: "Ligera y refrescante, esta IPA de trigo combina notas de pan recién horneado con un leve toque cítrico." },
+                { name: "IPA Tropical", description: "Cargada de frutas tropicales como piña y mango, esta IPA tiene un sabor vibrante y refrescante." },
+                { name: "IPA de Cítricos", description: "Con un perfil explosivo de cítricos, esta IPA ofrece una experiencia refrescante con notas prominentes de pomelo y naranja." },
+                { name: "IPA Ahumada", description: "Una IPA con un sabor distintivo a madera ahumada y un toque de especias, perfecta para los amantes de sabores intensos." },
+                { name: "IPA de Frambuesa", description: "Con un delicado sabor a frambuesa, esta IPA combina dulzura y acidez en una experiencia frutal y refrescante." },
+                { name: "IPA de Café", description: "Ideal para los amantes del café, esta IPA tiene un sabor robusto a café tostado y un ligero toque de chocolate oscuro." },
+                { name: "IPA de Chocolate", description: "Una combinación indulgente de lúpulo y chocolate, creando una IPA con un sabor rico y cremoso." },
+                { name: "IPA de Coco", description: "Suave y exótica, esta IPA ofrece un sabor distintivo a coco con un acabado dulce y tropical." },
+                { name: "IPA de Piña", description: "Con un sabor refrescante a piña, esta IPA ofrece una explosión de frutas tropicales en cada sorbo." },
+                { name: "IPA de Jengibre", description: "Una IPA con un toque picante de jengibre, creando una experiencia única y especiada en cada trago." }
+            ];
+
+            const prices = [250, 300, 350]; // Precios fijos entre 250 y 350 pesos
+            const menuSection = document.getElementById('menu');
+
+            const images = [
+                "https://freerangestock.com/thumbnail/118370/close-up-of-beer-foam.jpg",
+                "https://freerangestock.com/thumbnail/138094/cold-bottles-of-beer-in-ice-on-yellow-background.jpg",
+                "https://freerangestock.com/thumbnail/82504/bottles-of-beer-lined-up-on-shelf.jpg",
+                "https://freerangestock.com/thumbnail/165621/bartender-pouring-a-beer-at-a-pub.jpg",
+                "https://freerangestock.com/thumbnail/106544/group-of-people-toasting-with-glasses-of-beer.jpg"
+            ];
+
+            function getRandomImage() {
+                return images[Math.floor(Math.random() * images.length)];
+            }
+
+            function createProductElement(product) {
+                const price = prices[Math.floor(Math.random() * prices.length)];
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    <h2>${product.name}</h2>
+                    <p>${product.description}</p>
+                    <p>Precio: $${price} por dos botellas de 355 ml más envío</p>
+                    <img src="${getRandomImage()}" alt="Imagen decorativa">
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                        <input type="hidden" name="cmd" value="_s-xclick" />
+                        <input type="hidden" name="hosted_button_id" value="HQLXN5CF4SYJ4" />
+                        <input type="hidden" name="currency_code" value="MXN" />
+                        <input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_cart_SM.gif" border="0" name="submit" title="PayPal es una forma segura y fácil de pagar en línea." alt="Agregar al carrito" />
+                    </form>
+                `;
+                return productDiv;
+            }
+
+            products.forEach((product) => {
+                menuSection.appendChild(createProductElement(product));
+            });
+
+            const whatsappButton = document.getElementById('whatsapp-btn');
+            whatsappButton.addEventListener('click', function() {
+                const phoneNumber = "525533355687";
+                const message = "Hola, me gustaría hacer un pedido.";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
