@@ -3,93 +3,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cervecería Adelipa</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Argentum+Novus:wght@400;700&display=swap">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Argentum Novus', serif;
             margin: 0;
             padding: 0;
-            background-color: #1c1c1c;
+            background-color: #2e2e2e;
             color: #fff;
         }
 
         .container {
             text-align: center;
-            padding: 10px;
+            padding: 20px;
         }
 
         header {
             background-color: #6a0dad;
-            padding: 20px 10px;
-            border-bottom: 2px solid #d4af37;
+            padding: 30px 20px;
+            border-bottom: 3px solid #d4af37;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         header .logo {
-            width: 300px;
-            height: 300px;
+            width: 250px;
+            height: auto;
         }
 
         header .title {
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         h1 {
             margin: 10px;
             color: #d4af37;
-            font-size: 1.5em;
+            font-size: 2em;
+            font-weight: bold;
         }
 
         h2 {
             margin: 10px;
             color: #fff;
-            font-size: 1.2em;
+            font-size: 1.5em;
+        }
+
+        p {
+            font-size: 1em;
+            color: #e0e0e0;
         }
 
         #menu {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .product {
-            background-color: #333;
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            margin: 10px 5px;
-            padding: 10px;
-            width: 90%;
-            max-width: 500px;
+            background-color: #3c3c3c;
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            margin: 15px;
+            padding: 20px;
+            width: calc(50% - 40px); /* Ajuste para dos columnas */
             box-sizing: border-box;
             position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .product img {
-            width: 250px;
-            height: 250px;
-            border-radius: 10px;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
             margin-top: 10px;
             object-fit: cover;
         }
 
         .product h2 {
             color: #d4af37;
-            font-size: 1.1em;
+            font-size: 1.3em;
         }
 
         .product p {
-            font-size: 0.9em;
+            font-size: 1em;
+            color: #c0c0c0;
         }
 
         .decorative-image img {
-            width: 250px;
-            height: 250px;
+            width: 100%;
+            height: auto;
             object-fit: cover;
             border: 2px solid #d4af37;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 10px;
         }
 
@@ -98,13 +108,14 @@
             color: #fff;
             border: none;
             border-radius: 50px;
-            padding: 10px 15px;
-            font-size: 1em;
+            padding: 15px 20px;
+            font-size: 1.2em;
             position: fixed;
             top: 30px;
-            left: 30px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            right: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         #whatsapp-btn:hover {
@@ -113,30 +124,54 @@
 
         #cart {
             background-color: #444;
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            margin: 10px auto;
-            padding: 10px;
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            margin: 20px auto;
+            padding: 20px;
             max-width: 500px;
             width: 90%;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         #cart h2 {
             color: #d4af37;
+            font-size: 1.5em;
         }
 
         #cart p {
-            font-size: 1.1em;
-            margin: 5px 0;
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #e0e0e0;
         }
 
         #paypal-form {
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         #paypal-form input[type="number"] {
-            width: 60px;
+            width: 80px;
+        }
+
+        #update-cart-btn {
+            background-color: #6a0dad;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #update-cart-btn:hover {
+            background-color: #5a0c9d;
+        }
+
+        @media (max-width: 768px) {
+            .product {
+                width: calc(100% - 40px); /* Ajuste para una sola columna en pantallas pequeñas */
+            }
         }
     </style>
 </head>
@@ -145,21 +180,20 @@
         <header>
             <img src="https://i.imgur.com/ZIyl6k8.png" alt="Logo" class="logo">
             <div class="title">
-              <h1>Cervecería Adelipa</h1> 
-              <h2>Catálogo</h2>
-              <p>Hacienda de San Andrés, Puebla, México.</p>
+                <h1>Cervecería Adelipa</h1> 
+                <h2>Catálogo</h2>
+                <p>Hacienda de San Andrés, Puebla, México.</p>
             </div>
         </header>
-<div id="cart">
-            <h2>🛒Carrito</h2>
+        <div id="cart">
+            <h2>🛒 Carrito</h2>
             <div id="cart-items"></div>
-  <p id="cart-total">Total: $0.00</p> <p> Paga con Tarjeta de Crédito, Débito, Paypal</p>
+            <p id="cart-total">Total: $0.00</p>
+            <p>Paga con Tarjeta de Crédito, Débito, Paypal</p>
             <div id="paypal-form"></div>
+            <button id="update-cart-btn" onclick="location.reload();">Corregir Carrito</button>
         </div>
         <div id="menu"></div>
-
-        
-
         <button id="whatsapp-btn">📲 WhatsApp</button>
     </div>
 
@@ -183,12 +217,7 @@
                 { name: "IPA de Jengibre", description: "Una IPA con un toque picante de jengibre, creando una experiencia única y especiada en cada trago." }
             ];
 
-            const prices = [250, 300, 350]; // Precios fijos entre 250 y 350 pesos
-            const menuSection = document.getElementById('menu');
-            const cartItemsSection = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
-            const paypalForm = document.getElementById('paypal-form');
-
+            const prices = [250, 300, 350, 400];
             const images = [
                 "https://freerangestock.com/thumbnail/118370/close-up-of-beer-foam.jpg",
                 "https://freerangestock.com/thumbnail/138094/cold-bottles-of-beer-in-ice-on-yellow-background.jpg",
@@ -232,6 +261,8 @@
             }
 
             function updateCart() {
+                const cartItemsSection = document.getElementById('cart-items');
+                const cartTotal = document.getElementById('cart-total');
                 cartItemsSection.innerHTML = '';
                 total = 0;
                 cart.forEach(item => {
@@ -243,21 +274,21 @@
             }
 
             function updatePayPalForm() {
+                const paypalForm = document.getElementById('paypal-form');
                 paypalForm.innerHTML = `
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_xclick" />
-    <input type="hidden" name="business" value="gascagtz@gmail.com" />
-    <input type="hidden" name="currency_code" value="MXN" />
-    <input type="hidden" name="amount" value="${total.toFixed(2)}" />
-    <input type="hidden" name="item_name" value="${cart.map(item => `${item.name} (${item.quantity})`).join(', ')}" />
-    <input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_cart_SM.gif" border="0" name="submit" title="PayPal es una forma segura y fácil de pagar en línea." alt="Pagar con PayPal" />
-</form>
-
+                        <input type="hidden" name="cmd" value="_xclick" />
+                        <input type="hidden" name="business" value="gascagtz@gmail.com" />
+                        <input type="hidden" name="currency_code" value="MXN" />
+                        <input type="hidden" name="amount" value="${total.toFixed(2)}" />
+                        <input type="hidden" name="item_name" value="${cart.map(item => `${item.name} (${item.quantity})`).join(', ')}" />
+                        <input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_cart_SM.gif" border="0" name="submit" title="PayPal es una forma segura y fácil de pagar en línea." alt="Pagar con PayPal" />
+                    </form>
                 `;
             }
 
             products.forEach((product, index) => {
-                menuSection.appendChild(createProductElement(product, index));
+                document.getElementById('menu').appendChild(createProductElement(product, index));
             });
 
             const whatsappButton = document.getElementById('whatsapp-btn');
