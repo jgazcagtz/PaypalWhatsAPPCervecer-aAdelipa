@@ -290,7 +290,7 @@
                 { name: "IPA de Jengibre", description: "Una IPA con un toque picante de jengibre, creando una experiencia única y especiada en cada trago." }
             ];
 
-            const prices = [250, 300, 350, 400];
+            const prices = [500, 700, 800, 900];
             const images = [
                 "https://freerangestock.com/thumbnail/118370/close-up-of-beer-foam.jpg",
                 "https://freerangestock.com/thumbnail/138094/cold-bottles-of-beer-in-ice-on-yellow-background.jpg",
@@ -318,7 +318,7 @@
                 productDiv.innerHTML = 
                     `<h2>${product.name}</h2>
                     <p>${product.description}</p>
-                    <p>Precio: $${price} por dos botellas de 355 ml más envío</p>
+                    <p>Precio: $${price} por Cartón de 6 botellas de 355 ml con envío sin costo</p>
                     <img src="${getRandomImage()}" alt="Imagen decorativa">
                     <p><label>Cantidad: <input type="number" id="quantity-${index}" value="1" min="1"></label></p>
                     <button onclick="addToCart(${index}, ${price})">Agregar al carrito</button>`;
